@@ -2,13 +2,31 @@
   <div class="nav-wrapper center red lighten-2">
     <a href="#!" class="brand-logo">Agile locator</a>
     <ul class="left hide-on-med-and-down">
-      <li><a><i class="material-icons left">search</i>Search for Poi</a></li>
+      <li (click)="ShowHidePoiList()"><a><i class="material-icons left">view_list</i>Poi List</a></li>
     </ul>
     <ul class="right hide-on-med-and-down">
-      <li (click)="ProfileDetails()"><a><i class="material-icons right">person_outline</i>Profile</a></li>
+      <li (click)="ShowHideProfileDetails()"><a><i class="material-icons right">person_outline</i>Profile</a></li>
     </ul>
   </div>
 </nav>
+<div *ngIf="showPoiList" style=" z-index: 9999;position: absolute; left: 10px;">
+  <div class="col right">
+    <div class="card red lighten-2">
+      <div class="card-content white-text">
+        <span class="card-title">Poi List</span>
+        <ul class="collection">
+          <li *ngFor="let poi of poiList" class="collection-item avatar red lighten-3" >
+            <img src="assets/images/a-line-train-circle.png" class="circle">
+            <span class="title">{{poi.name}}</span>
+            <p>{{poi.category}}</p>
+            <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
+            <a class=""><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.mark" class="material-icons">grade</i></span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 <div *ngIf="showDetails" style=" z-index: 9999;position: absolute; right: 10px;">
   <div class="col right">
     <div class="card red lighten-2">
@@ -29,4 +47,4 @@
     </div>
   </div>
 </div>
-<here-map appId="BrDTVuAWd7NbRX0pwqk0" appCode="aHREoFNTMhh9_gQAKCbnbQ" lat="51.759048" lng="19.458599" width="100%" height="635px"></here-map>
+<zmzp-osm [poiList] = 'poiList' ></zmzp-osm>

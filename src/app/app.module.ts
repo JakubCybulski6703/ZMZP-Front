@@ -18,7 +18,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import {fakeBackendProvider} from './shared/FakeBackendInterceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireDatabase} from '@angular/fire/database';
-import { HereMapComponent } from './here-map/here-map.component';
+import {MapService} from './shared/map.service';
+import { OsmComponent } from './osm/osm.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HereMapComponent } from './here-map/here-map.component';
     UserComponent,
     SignInComponent,
     HomeComponent,
-    HereMapComponent
+    OsmComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,7 @@ import { HereMapComponent } from './here-map/here-map.component';
     MatExpansionModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService, AuthGuard,
+  providers: [UserService, MapService, AuthGuard,
     {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,
