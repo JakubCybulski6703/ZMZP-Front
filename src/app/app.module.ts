@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppComponent } from './app.component';
 import { UserService } from './shared/user.service';
@@ -37,7 +38,8 @@ import { OsmComponent } from './osm/osm.component';
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     MatExpansionModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ScrollingModule
   ],
   providers: [UserService, MapService, AuthGuard,
     {

@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
     });
     this.mapService.getPoiList().subscribe((data: any) => {
       this.poiList = data.poiList;
+      this.poiList = [...this.poiList, ...this.poiList];
+      this.poiList = [...this.poiList, ...this.poiList];
     });
   }
 

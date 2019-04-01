@@ -1,35 +1,6 @@
-<nav>
-  <div class="nav-wrapper center red lighten-2">
-    <a href="#!" class="brand-logo">Agile locator</a>
-    <ul class="left hide-on-med-and-down">
-      <li (click)="ShowHidePoiList()"><a><i class="material-icons left">view_list</i>Poi List</a></li>
-    </ul>
-    <ul class="right hide-on-med-and-down">
-      <li (click)="ShowHideProfileDetails()"><a><i class="material-icons right">person_outline</i>Profile</a></li>
-    </ul>
-  </div>
-</nav>
-<div *ngIf="showPoiList" style=" z-index: 9999;position: absolute; left: 10px;">
-  <div class="col right">
-    <div class="card red lighten-2">
-      <div class="card-content white-text">
-        <span class="card-title">Poi List</span>
-        <ul class="collection">
-          <li *ngFor="let poi of poiList" class="collection-item avatar red lighten-3" >
-            <img src="assets/images/a-line-train-circle.png" class="circle">
-            <span class="title">{{poi.name}}</span>
-            <p>{{poi.category}}</p>
-            <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
-            <a class=""><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.mark" class="material-icons">grade</i></span></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 <div *ngIf="showDetails" style=" z-index: 9999;position: absolute; right: 10px;">
   <div class="col right">
-    <div class="card red lighten-2">
+    <div class="card deep-purple">
       <div class="card-content white-text">
         <span class="card-title">Profile details</span>
         <p>
@@ -42,9 +13,52 @@
         </p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn red lighten-3" (click)="Logout()" >logout</a>
+        <a class="waves-effect waves-light btn deep-purple darken-3" (click)="Logout()">logout</a>
       </div>
     </div>
   </div>
 </div>
-<zmzp-osm [poiList] = 'poiList' ></zmzp-osm>
+
+<div class="row">
+  <div class="col s3 no-padding">
+    <nav>
+      <div class="nav-wrapper center deep-purple">
+        <i class="material-icons left">view_list</i>Poi List
+      </div>
+    </nav>
+    
+    <ul class="collection" style="margin-top: 0px">
+      <mat-accordion>
+        <li *ngFor="let poi of poiList" class="collection-item avatar">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <img src="assets/images/a-line-train-circle.png" class="circle"> {{poi.name}}
+              </mat-panel-title>
+              <mat-panel-description style="text-align: right">
+                <a class=""><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.mark"
+                      class="material-icons">grade</i></span></a>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <p>{{poi.category}}</p>
+            <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
+
+          </mat-expansion-panel>
+        </li>
+      </mat-accordion>
+    </ul>
+  </div>
+
+  <div class="col s9 no-padding">
+    <nav class="nav-extended">
+      <div class="nav-wrapper center deep-purple" style="z-index: 9999">
+        <a href="#!" class="brand-logo">Agile locator</a>
+        <ul class="right hide-on-med-and-down">
+          <li (click)="ShowHideProfileDetails()"><a><i class="material-icons right">person_outline</i>Profile</a></li>
+        </ul>
+      </div>
+    </nav>
+    <zmzp-osm [poiList]='poiList'></zmzp-osm>
+  </div>
+</div>
