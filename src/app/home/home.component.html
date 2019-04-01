@@ -26,28 +26,30 @@
         <i class="material-icons left">view_list</i>Poi List
       </div>
     </nav>
-    
-    <ul class="collection" style="margin-top: 0px">
-      <mat-accordion>
-        <li *ngFor="let poi of poiList" class="collection-item avatar">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <img src="assets/images/a-line-train-circle.png" class="circle"> {{poi.name}}
-              </mat-panel-title>
-              <mat-panel-description style="text-align: right">
-                <a class=""><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.mark"
-                      class="material-icons">grade</i></span></a>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
 
-            <p>{{poi.category}}</p>
-            <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
+    <ul class="collection" style="margin-top: 0px;">
+    <mat-accordion>
+      <cdk-virtual-scroll-viewport itemSize="50" class="poi-viewpoint">
+        <li  *cdkVirtualFor="let poi of poiList" class="collection-item avatar">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <img src="assets/images/a-line-train-circle.png" class="circle"> {{poi.name}}
+            </mat-panel-title>
+            <mat-panel-description style="text-align: right">
+              <a class=""><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.mark"
+                    class="material-icons">grade</i></span></a>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-          </mat-expansion-panel>
-        </li>
-      </mat-accordion>
-    </ul>
+          <p>{{poi.category}}</p>
+          <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
+
+        </mat-expansion-panel>
+      </li>
+      </cdk-virtual-scroll-viewport>
+    </mat-accordion>
+  </ul>
   </div>
 
   <div class="col s9 no-padding">

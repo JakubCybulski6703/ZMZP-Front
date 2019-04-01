@@ -2,3 +2,8 @@
     padding-left: 0px;
     padding-right: 0px;
 }
+
+.poi-viewpoint {
+    height: calc(100vh - 65px);
+    width: 100%;
+}
