@@ -1,32 +1,25 @@
 <form class="col s12 white" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
   <div class="row">
-    <div class="input-field col s6">
-      <input class="validate" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
-      <label data-error="Required field!">UserName</label>
-    </div>
-    <div class="input-field col s6">
-      <input class="validate" type="password" name="Password" #Password="ngModel" [(ngModel)]="user.Password" required minlength="3">
-      <label [attr.data-error]="Password.errors!=null?(Password.errors.required?'Required field!':'Minimum 3 characters needed'):''">Password</label>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">account_circle</i>
+      <input class="validate" type="text" name="login" #login="ngModel" [(ngModel)]="user.login" placeholder="login" required>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s12">
-      <input class="validate" type="email" name="Email" #Email="ngModel" [(ngModel)]="user.Email" [pattern]="emailPattern">
-      <label data-error="Invalid email!">Email</label>
+      <i class="material-icons prefix">vpn_key</i>
+      <input class="validate" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required minlength="3" placeholder="password">
+      <label [attr.data-error]="password.errors!=null?(password.errors.required?'Required field!':'Minimum 3 characters needed'):''"></label>
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s6">
-      <input type="text" name="FirstName" #FirstName="ngModel" [(ngModel)]="user.FirstName">
-      <label>First Name</label>
-    </div>
-    <div class="input-field col s6">
-      <input type="text" name="LastName" #LastName="ngModel" [(ngModel)]="user.LastName">
-      <label>Last Name</label>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">label_important</i>
+      <input class="validate" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" placeholder="name" required>
     </div>
   </div>
   <div >
-    <input class="validate" type="checkbox"  class="filled-in"  id="TnA"  />
+    <input class="validate filled-in" type="checkbox"  name="tnA"  id="TnA"  [(ngModel)]="user.tnA"  required />
     <label for="TnA">I accept </label><a href="https://maks-zgierski.pl:6443/agile/regulations" target="_blank" > Terms & Conditions agreement</a>
   </div>
   <div class="row">

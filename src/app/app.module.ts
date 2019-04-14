@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -15,12 +15,14 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './auth/auth.guard';
-import { AuthInterceptor } from './auth/auth.interceptor';
+import {AuthInterceptor, authProvider} from './auth/auth.interceptor';
 import {fakeBackendProvider} from './shared/FakeBackendInterceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {MapService} from './shared/map.service';
 import { OsmComponent } from './osm/osm.component';
+import {MatDialogModule, MatButtonModule } from '@angular/material';
+import { AddOpinionComponent } from './add-opinion/add-opinion.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { OsmComponent } from './osm/osm.component';
     SignInComponent,
     HomeComponent,
     OsmComponent,
+    AddOpinionComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,17 +42,17 @@ import { OsmComponent } from './osm/osm.component';
     BrowserAnimationsModule,
     MatExpansionModule,
     RouterModule.forRoot(appRoutes),
-    ScrollingModule
+    ScrollingModule,
+    MatDialogModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [UserService, MapService, AuthGuard,
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass : AuthInterceptor,
-      multi : true
-    },
+    authProvider,
     fakeBackendProvider,
     AngularFireDatabase
     ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddOpinionComponent]
 })
 export class AppModule { }

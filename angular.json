@@ -29,7 +29,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/leaflet/leaflet.css"
+              "src/assets/leaflet/leaflet.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [ "src/assets/leaflet/leaflet.js"],
             "es5BrowserSupport": true

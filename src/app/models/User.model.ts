@@ -1,7 +1,6 @@
 export class User {
-  UserName: string;
-  Password: string;
-  Email: string;
-  FirstName: string;
-  LastName: string;
+  login: string;
+  password: string;
+  name: string;
+  tnA?: boolean;
 }

@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{modalTitle}}</h2>
+<mat-dialog-content>
+  <div class="input-field col s12">
+    <textarea  type="text" class="materialize-textarea" #description ngModel name="description" placeholder="opis" required></textarea>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button   mat-dialog-close class="left waves-effect waves-light btn deep-purple darken-3" style="">Anuluj</button>
+  <button   [mat-dialog-close]="description.value" class="right waves-effect waves-light btn deep-purple darken-3" style="margin-left: 20px;">Zapisz</button>
+</mat-dialog-actions>

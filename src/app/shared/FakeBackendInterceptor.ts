@@ -12,13 +12,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
 
     return of(null).pipe(mergeMap(()  => {
-
-      if (request.url.endsWith('/token') && request.method === 'POST') {
-        const accessToken = {
-          token: 'fake-token'
-        };
-        return of(new HttpResponse({status: 200, body: accessToken}));
-      }
       if (request.url.endsWith('/GetUserClaims') && request.method === 'GET') {
         const data = {
           UserName: 'Jon Snow',
@@ -38,6 +31,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               mark: 4.0,
               category: 'komunikacja',
               owner: '',
+              comments: [
+                {
+                  owner: 'Marek Marciniak',
+                  creationDate: 1555238553338,
+                  mark: 2,
+                  description: 'Brud,kolejka do kasy,odchody golebi',
+                },
+                {
+                  owner: 'Pnieśu',
+                  creationDate: 1555238213338,
+                  mark: 3,
+                  description: 'Dworzec w kiepskim stanie technicznym. ' +
+                    'Jest poczekalnia z ławkami. Jest kiosk i bar. ' +
+                    'Dużo kas, większość zamknięta przez co tworzą się kolejki.',
+                }]
             },
               {
               name: 'Dw. Łódź Chojny',
@@ -45,13 +53,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               mark: 3.0,
               category: 'komunikacja',
               owner: '',
+              comments: []
             },
               {
               name: 'Dw. Łódź Widzew',
               cords: {lat:  51.7631, lon: 19.543800000000033},
               mark: 4.0,
               category: 'komunikacja',
-              owner: '',
+                owner: '',
+                comments: []
             },
               {
               name: 'Dw. Łódź Żabieniec',
@@ -59,6 +69,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               mark: 2.0,
               category: 'komunikacja',
               owner: '',
+                comments: []
             },
               {
               name: 'Dw. Łódź Fabryczna',
@@ -66,12 +77,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               mark: 5.0,
               category: 'komunikacja',
               owner: '',
+                comments: []
             },
             ]
           }
         ;
         return of(new HttpResponse({status: 200, body: data}));
       }
+      return next.handle(request);
     }));
   }
 }
