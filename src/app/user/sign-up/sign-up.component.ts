@@ -11,8 +11,6 @@ import {User} from '../../models/User.model';
 })
 export class SignUpComponent implements OnInit {
   user: User;
-  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
-
   constructor(private userService: UserService, private toastr: ToastrService) { }
 
   terms: boolean = false;
@@ -25,22 +23,23 @@ export class SignUpComponent implements OnInit {
       form.reset();
     }
     this.user = {
-      UserName: '',
-      Password: '',
-      Email: '',
-      FirstName: '',
-      LastName: '',
+      login: '',
+      password: '',
+      name: '',
+      tnA: false
     };
   }
 
   OnSubmit(form: NgForm) {
+    localStorage.removeItem('userToken');
+
     this.userService.registerUser(form.value)
       .subscribe((data: any) => {
-        if (data.Succeeded === true) {
+        if (data.code === 1) {
           this.resetForm(form);
           this.toastr.success('User registration successful');
         } else {
-          this.toastr.error(data.Errors[0]);
+          this.toastr.error(data.message);
         }
       });
   }

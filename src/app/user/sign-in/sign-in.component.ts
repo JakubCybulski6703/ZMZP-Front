@@ -15,8 +15,8 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-  OnSubmit(userName, password) {
-     this.userService.userAuthentication(userName, password).subscribe((data: any) => {
+  OnSubmit(login, password) {
+     this.userService.userAuthentication(login, password).subscribe((data: any) => {
       localStorage.setItem('userToken', data.access_token);
       this.router.navigate(['/home']);
     },

@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './auth/auth.guard';
-import { AuthInterceptor } from './auth/auth.interceptor';
+import {AuthInterceptor, authProvider} from './auth/auth.interceptor';
 import {fakeBackendProvider} from './shared/FakeBackendInterceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireDatabase} from '@angular/fire/database';
@@ -42,11 +42,7 @@ import { OsmComponent } from './osm/osm.component';
     ScrollingModule
   ],
   providers: [UserService, MapService, AuthGuard,
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass : AuthInterceptor,
-      multi : true
-    },
+    authProvider,
     fakeBackendProvider,
     AngularFireDatabase
     ],
