@@ -1,0 +1,8 @@
+{
+  "/agile/*": {
+    "target": "https://maks-zgierski.pl:6443",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class MapService {
-  readonly rootUrl = 'http://localhost:35257';
+  readonly rootUrl = '/agile';
   constructor(private http: HttpClient) { }
 
   getPoiList() {

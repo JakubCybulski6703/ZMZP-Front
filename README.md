@@ -16,4 +16,5 @@ Aktualnie dodany został panel logowania, rejestracji oraz główny panel z map�
 odpalamy poprzez :
 
 1. npm install
-2. ng serve
+2. npm start
+

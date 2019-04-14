@@ -6,25 +6,31 @@ import {User} from '../models/User.model';
 
 @Injectable()
 export class UserService {
-  readonly rootUrl = 'http://localhost:35257';
+  readonly rootUrl = '/agile';
   constructor(private http: HttpClient) { }
 
   registerUser(user: User) {
-    const body: User = {
-      UserName: user.UserName,
-      Password: user.Password,
-      Email: user.Email,
-      FirstName: user.FirstName,
-      LastName: user.LastName
+    const data: User = {
+      login: user.login,
+      password: user.password,
+      name: user.name,
     };
-    const reqHeader = new HttpHeaders({'No-Auth': 'True'});
-    return this.http.post(this.rootUrl + '/api/User/Register', body, { headers : reqHeader});
+    const reqHeader = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.rootUrl + '/register_user', data, { headers : reqHeader});
   }
 
-  userAuthentication(userName, password) {
-    const data = 'username=' + userName + '&password=' + password + '&grant_type=password';
-    const reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' });
-    return this.http.post(this.rootUrl + '/token', data, { headers: reqHeader });
+  userAuthentication(login, password) {
+    const data = {
+      login,
+      password
+    };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type':  'application/json',
+        'cache-control': 'no-cache'
+  })
+    };
+    return this.http.post(this.rootUrl + '/login', data, httpOptions);
   }
 
   getUserClaims() {

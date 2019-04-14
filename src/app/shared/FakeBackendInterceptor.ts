@@ -12,13 +12,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
 
     return of(null).pipe(mergeMap(()  => {
-
-      if (request.url.endsWith('/token') && request.method === 'POST') {
-        const accessToken = {
-          token: 'fake-token'
-        };
-        return of(new HttpResponse({status: 200, body: accessToken}));
-      }
       if (request.url.endsWith('/GetUserClaims') && request.method === 'GET') {
         const data = {
           UserName: 'Jon Snow',
@@ -72,6 +65,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         ;
         return of(new HttpResponse({status: 200, body: data}));
       }
+      return next.handle(request);
     }));
   }
 }
