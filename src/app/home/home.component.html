@@ -36,7 +36,21 @@
           </mat-expansion-panel-header>
 
           <p>{{poi.category}}</p>
+
           <p *ngIf="poi.owner">właściciel: {{poi.owner}}</p>
+          <ul class="collection with-header"  *ngIf="poi.imgs">
+            <li class="collection-header"><h6>Galeria</h6></li>
+            <li class="collection-item" style="padding-left: 20px">
+                <mat-grid-list cols="3" rowHeight="130px">
+                    <mat-grid-tile *ngFor="let path of poi.imgs"
+                        [colspan]="1"
+                        [rowspan]="1">
+                        <img src="{{path}}" class="responsive-img">
+                    </mat-grid-tile>
+                  </mat-grid-list>
+            </li>
+
+          </ul>
           <ul class="collection with-header">
             <li class="collection-header"><h6>Wszystkie opinie <span class="right waves-effect waves-light btn deep-purple darken-3" style="transform: translateY(-10px);" (click)="addOpinion(i)">Dodaj</span>
             </h6>
