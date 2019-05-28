@@ -45,7 +45,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                   description: 'Dworzec w kiepskim stanie technicznym. ' +
                     'Jest poczekalnia z ławkami. Jest kiosk i bar. ' +
                     'Dużo kas, większość zamknięta przez co tworzą się kolejki.',
-                }]
+                }],
+                imgs: [
+                  'assets/images/a-line-train-circle.png',
+                  'assets/images/a-line-train-circle.png',
+                  'assets/images/a-line-train-circle.png',
+                  'assets/images/a-line-train-circle.png',
+                  'assets/images/a-line-train-circle.png',
+                ]
             },
               {
               name: 'Dw. Łódź Chojny',

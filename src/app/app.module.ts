@@ -22,6 +22,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {MapService} from './shared/map.service';
 import { OsmComponent } from './osm/osm.component';
 import {MatDialogModule, MatButtonModule } from '@angular/material';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { AddOpinionComponent } from './add-opinion/add-opinion.component';
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AddOpinionComponent } from './add-opinion/add-opinion.component';
     ScrollingModule,
     MatDialogModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule
   ],
   providers: [UserService, MapService, AuthGuard,
     authProvider,

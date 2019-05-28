@@ -4,4 +4,6 @@ export class Poi {
   mark: number;
   category: string;
   owner?: string;
+
+  imgs: string[];
 }
