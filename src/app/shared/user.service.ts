@@ -19,6 +19,7 @@ export class UserService {
     return this.http.post(this.rootUrl + '/register_user', data, { headers : reqHeader});
   }
 
+
   userAuthentication(login, password) {
     const data = {
       login,
