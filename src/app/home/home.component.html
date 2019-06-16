@@ -26,7 +26,13 @@
             <mat-panel-title style="width: 230px;">
               <img *ngIf="poi.place_type.name === 'School'" style="height: 34px; margin-right: 10px;" src="assets/images/School.png" class="circle">
               <img *ngIf="poi.place_type.name === 'Hospital'" style="height: 34px; margin-right: 10px;" src="assets/images/Hospital.png" class="circle">
+              <img *ngIf="poi.place_type.name === 'Airport'" style="height: 34px; margin-right: 10px;" src="assets/images/Airport.PNG" class="circle">
+              <img *ngIf="poi.place_type.name === 'Sports club'" style="height: 34px; margin-right: 10px;" src="assets/images/Sports club.PNG" class="circle">
+              <img *ngIf="poi.place_type.name === 'Shopping mall'" style="height: 34px; margin-right: 10px;" src="assets/images/Shopping mall.PNG" class="circle">
+              <img *ngIf="poi.place_type.name === 'Stadium'" style="height: 34px; margin-right: 10px;" src="assets/images/Stadium.PNG" class="circle">
+              <img *ngIf="poi.place_type.name === 'Swimming pool'" style="height: 34px; margin-right: 10px;" src="assets/images/Swimming pool.PNG" class="circle">
               {{poi.name}}
+              <a style="float: right; margin-left: 30px;"><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < poi.rating" class="material-icons icon-grade">grade</i></span></a>
             </mat-panel-title>
             <mat-panel-description style="text-align: right">
               <a>{{poi.place_type.name}}</a>
@@ -34,7 +40,7 @@
           </mat-expansion-panel-header>
           <p>
             <a>{{openPoi.address}}</a>
-            <a style="float: right"><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < openPoi.rating" class="material-icons icon-grade">grade</i></span></a>
+<!--            <a style="float: right"><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < openPoi.rating" class="material-icons icon-grade">grade</i></span></a>-->
             </p>
           <br>
           <p>
@@ -88,8 +94,16 @@
   <div class="col s12 no-padding">
     <nav class="nav-extended">
       <div class="nav-wrapper center deep-purple" style="z-index: 9999">
-        <a href="#!" class="brand-logo">Agile locator</a>
-        <a href="#!" class="left hide-on-med-and-down"><i class="material-icons left">view_list</i>Poi List</a>
+        <a href="#!" class="brand-logo"> ZMZP POI </a>
+        <ul class="left hide-on-med-and-down">
+          <li (click)="sort('rating')"><a><i class="material-icons left">grade</i>Sort by Rating</a></li>
+        </ul>
+        <ul class="left hide-on-med-and-down">
+          <li (click)="sort('name')"><a><i class="material-icons left">title</i>Sort by Name</a></li>
+        </ul>
+        <ul class="left hide-on-med-and-down">
+          <li (click)="sort('category')"><a><i class="material-icons left">category</i>Sort by Category</a></li>
+        </ul>
         <ul class="right hide-on-med-and-down">
           <li (click)="ShowHideProfileDetails()"><a><i class="material-icons right">person_outline</i>Profile</a></li>
         </ul>

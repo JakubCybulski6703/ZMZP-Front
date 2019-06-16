@@ -4,4 +4,5 @@ export class Poi {
   longitude: number;
   id: number;
   place_type: {id: number, name: string} ;
+  rating?: number;
 }

@@ -95,4 +95,18 @@ export class HomeComponent implements OnInit {
       reader.readAsDataURL(image);
     }
   }
+
+  sort(type) {
+    this.mapService.getPoiList().subscribe((data: any) => {
+      if (type === 'name') {
+      this.poiList = data.response.sort((a, b) => a.name.localeCompare(b.name));
+      }
+      if (type === 'rating') {
+      this.poiList = data.response.sort((a, b) => b.rating - a.rating);
+      }
+      if (type === 'category') {
+        this.poiList = data.response.sort((a, b) => a.place_type.name.localeCompare(b.place_type.name));
+      }
+    });
+  }
 }
