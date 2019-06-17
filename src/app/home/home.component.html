@@ -38,6 +38,7 @@
               <a>{{poi.place_type.name}}</a>
             </mat-panel-description>
           </mat-expansion-panel-header>
+          <cdk-virtual-scroll-viewport itemSize="50" class="poi-viewpoint">
           <p>
             <a>{{openPoi.address}}</a>
 <!--            <a style="float: right"><span *ngFor="let number of [0,1,2,3,4]"><i *ngIf="number < openPoi.rating" class="material-icons icon-grade">grade</i></span></a>-->
@@ -83,7 +84,7 @@
               </li>
             </span>
           </ul>
-
+          </cdk-virtual-scroll-viewport>
         </mat-expansion-panel>
       </li>
       </cdk-virtual-scroll-viewport>
