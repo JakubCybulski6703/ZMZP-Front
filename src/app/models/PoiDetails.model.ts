@@ -14,8 +14,11 @@ export class PoiDetails {
     opinion: string,
     user_id: number,
     user_login: string,
-    user_name: string
+    user_name: string,
+    commentScore?: number
   }];
   place_type?: {id: number, name: string} ;
   rating?: number;
+
+  
 }

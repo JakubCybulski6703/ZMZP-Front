@@ -76,6 +76,9 @@ export class HomeComponent implements OnInit {
       this.currentOpen = placeId;
       this.mapService.getPoiDetails(placeId).subscribe((data: any) => {
         this.openPoi = data.response;
+        this.openPoi.opinions.forEach(opinion => {
+          opinion.commentScore = 0;
+        })
         this.cords = {lat: this.openPoi.latitude, long: this.openPoi.longitude};
         data.response.images.forEach(image => {
           this.mapService.getImage(image).subscribe((im: any) => {
