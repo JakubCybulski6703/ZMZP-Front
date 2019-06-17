@@ -37,6 +37,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                   creationDate: 1555238553338,
                   mark: 2,
                   description: 'Brud,kolejka do kasy,odchody golebi',
+                  commentScore: 0,
                 },
                 {
                   owner: 'Pnieśu',
@@ -45,6 +46,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                   description: 'Dworzec w kiepskim stanie technicznym. ' +
                     'Jest poczekalnia z ławkami. Jest kiosk i bar. ' +
                     'Dużo kas, większość zamknięta przez co tworzą się kolejki.',
+                  commentScore: 0,
                 }],
                 imgs: [
                   'assets/images/a-line-train-circle.png',

@@ -66,4 +66,21 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  myCommentAnswer(comment) {
+    if (comment.commentMyAnswer === undefined) {
+      comment.commentMyAnswer = 0;
+    }
+
+    return comment.commentMyAnswer;
+  }
+
+  scoreComment(comment, value) {
+    if (this.myCommentAnswer(comment) === 0) {
+      comment.commentScore += value;
+    } else if (this.myCommentAnswer(comment) === -value) {
+      comment.commentScore += 2 * value;
+    }
+    comment.commentMyAnswer = value;
+  }
 }
