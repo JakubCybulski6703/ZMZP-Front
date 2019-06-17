@@ -76,6 +76,9 @@ export class HomeComponent implements OnInit {
       this.currentOpen = placeId;
       this.mapService.getPoiDetails(placeId).subscribe((data: any) => {
         this.openPoi = data.response;
+        this.openPoi.opinions.forEach(opinion => {
+          opinion.commentScore = 0;
+        })
         this.cords = {lat: this.openPoi.latitude, long: this.openPoi.longitude};
         data.response.images.forEach(image => {
           this.mapService.getImage(image).subscribe((im: any) => {
@@ -108,5 +111,22 @@ export class HomeComponent implements OnInit {
         this.poiList = data.response.sort((a, b) => a.place_type.name.localeCompare(b.place_type.name));
       }
     });
+  }
+
+  myCommentAnswer(comment) {
+    if (comment.commentMyAnswer === undefined) {
+      comment.commentMyAnswer = 0;
+    }
+
+    return comment.commentMyAnswer;
+  }
+
+  scoreComment(comment, value) {
+    if (this.myCommentAnswer(comment) === 0) {
+      comment.commentScore += value;
+    } else if (this.myCommentAnswer(comment) === -value) {
+      comment.commentScore += 2 * value;
+    }
+    comment.commentMyAnswer = value;
   }
 }
