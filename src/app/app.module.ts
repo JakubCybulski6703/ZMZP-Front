@@ -16,7 +16,6 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './auth/auth.guard';
 import {AuthInterceptor, authProvider} from './auth/auth.interceptor';
-import {fakeBackendProvider} from './shared/FakeBackendInterceptor';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {MapService} from './shared/map.service';
@@ -51,7 +50,6 @@ import { AddOpinionComponent } from './add-opinion/add-opinion.component';
   ],
   providers: [UserService, MapService, AuthGuard,
     authProvider,
-    fakeBackendProvider,
     AngularFireDatabase
     ],
   bootstrap: [AppComponent],

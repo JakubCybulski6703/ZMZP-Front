@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {icon} from 'leaflet';
-import {Observable} from 'rxjs';
 import {Poi} from '../models/Poi.model';
 declare let L;
 
@@ -9,30 +8,42 @@ declare let L;
   templateUrl: './osm.component.html',
   styleUrls: ['./osm.component.css']
 })
-export class OsmComponent implements OnInit {
+export class OsmComponent implements OnInit, OnChanges {
 
+  map;
   @Input()
   poiList: Poi[];
+  @Input()
+  cords: { lat: number, long: number};
   constructor() { }
 
-  ngOnInit() {
-    const map = L.map('map').setView([51.7687323, 19.4569911], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    }).addTo(map);
-    if (this.poiList) {
-      for (let i = 0, len = this.poiList.length; i < len; i++) {
-        L.marker([ this.poiList[i].cords.lat, this.poiList[i].cords.lon ], {
-          icon: icon({
-            iconSize: [ 25, 41 ],
-            iconAnchor: [ 13, 41 ],
-            iconUrl: 'assets/marker-icon.png',
-            shadowUrl: 'assets/marker-shadow.png'
-          })
-        }).addTo(map)
-          .bindPopup(this.poiList[i].name + '<br>ocena: ' + this.poiList[i].mark);
+  ngOnChanges() {
+    if (this.poiList && this.cords) {
+      if (!this.map) {
+        this.map = L.map('map').setView([this.cords.lat, this.cords.long], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
+        if (this.poiList) {
+          for (let i = 0, len = this.poiList.length; i < len; i++) {
+            L.marker([this.poiList[i].latitude, this.poiList[i].longitude], {
+              icon: icon({
+                iconSize: [25, 41],
+                iconAnchor: [13, 41],
+                iconUrl: 'assets/marker-icon.png',
+                shadowUrl: 'assets/marker-shadow.png'
+              })
+            }).addTo(this.map)
+              .bindPopup(this.poiList[i].name + '<br>' + this.poiList[i].place_type.name);
+          }
+        }
+      } else {
+        this.map.setView([this.cords.lat, this.cords.long], 13);
       }
     }
+  }
+
+
+  ngOnInit() {
+
   }
 
 }

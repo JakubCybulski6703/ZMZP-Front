@@ -1,9 +1,8 @@
 export class Poi {
   name: string;
-  cords: { lat: number, lon: number};
-  mark: number;
-  category: string;
-  owner?: string;
-
-  imgs: string[];
+  latitude: number;
+  longitude: number;
+  id: number;
+  place_type: {id: number, name: string} ;
+  rating?: number;
 }

@@ -3,9 +3,16 @@
   <div class="input-field col s12">
     <textarea  type="text" class="materialize-textarea" #description ngModel name="description" placeholder="opis" required></textarea>
   </div>
+  <form action="#">
+    <p>ocena: </p>
+    <p class="range-field">
+      <input type="range" #mark min="1" max="5" />
+    </p>
+  </form>
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button   mat-dialog-close class="left waves-effect waves-light btn deep-purple darken-3" style="">Anuluj</button>
-  <button   [mat-dialog-close]="description.value" class="right waves-effect waves-light btn deep-purple darken-3" style="margin-left: 20px;">Zapisz</button>
+  <button   [mat-dialog-close]="{description: description.value, mark: mark.value}" class="right waves-effect waves-light btn deep-purple darken-3" style="margin-left: 20px;">Zapisz</button>
 </mat-dialog-actions>

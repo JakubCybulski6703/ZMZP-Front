@@ -4,6 +4,8 @@ import { UserService } from '../shared/user.service';
 import {MapService} from '../shared/map.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddOpinionComponent} from '../add-opinion/add-opinion.component';
+import {PoiDetails} from '../models/PoiDetails.model';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -12,46 +14,46 @@ import {AddOpinionComponent} from '../add-opinion/add-opinion.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  userClaims: any;
+  UserName: {};
   showDetails =  false;
   showPoiList =  false;
+  currentOpen: number = 0;
   poiList: any;
-  public constructor(private router: Router, private userService: UserService, private mapService: MapService, public dialog: MatDialog) {
+  openPoi: PoiDetails = {};
+  imageSrcs = [];
+  cords: { lat: number, long: number} = {lat: 51.7687323, long: 19.4569911};
+  public constructor(private sanitizer: DomSanitizer, private router: Router, private userService: UserService, private mapService: MapService, public dialog: MatDialog) {
   }
   ngOnInit() {
-    this.userService.getUserClaims().subscribe((data: any) => {
-      this.userClaims = data;
-    });
+    this.UserName = localStorage.getItem('userName');
     this.mapService.getPoiList().subscribe((data: any) => {
-      this.poiList = data.poiList;
+      this.poiList = data.response;
     });
   }
 
   ShowHideProfileDetails() {
     this.showDetails = !this.showDetails;
   }
-  ShowHidePoiList() {
-    this.showPoiList = !this.showPoiList;
-    console.log(this.poiList);
-  }
+
   Logout() {
     localStorage.removeItem('userToken');
     this.router.navigate(['/login']);
   }
-  addOpinion(index) {
-    this.openModal(index);
+  addOpinion() {
+    this.openModal();
   }
-  saveOpinion(result, index) {
+  saveOpinion(result) {
     console.log('save');
-    this.poiList[index].comments.push({
-      owner: 'user',
-      creationDate: new Date(),
-      mark: 0,
-      description: result,
+    const opinion = {placeId: this.currentOpen, rating: result.mark, comment: result.description};
+    this.mapService.addOpinion(opinion).subscribe((data: any) => {
+      console.log(data);
+      this.mapService.getPoiDetails(this.currentOpen).subscribe((res: any) => {
+        this.openPoi = res.response;
+      });
     });
   }
 
-  openModal(index) {
+  openModal() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -62,7 +64,48 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(AddOpinionComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.saveOpinion(result, index);
+        this.saveOpinion(result);
+      }
+    });
+  }
+
+  getPoiDetails(placeId) {
+    if(this.currentOpen !== placeId){
+      this.openPoi = {};
+      this.imageSrcs = [];
+      this.currentOpen = placeId;
+      this.mapService.getPoiDetails(placeId).subscribe((data: any) => {
+        this.openPoi = data.response;
+        this.cords = {lat: this.openPoi.latitude, long: this.openPoi.longitude};
+        data.response.images.forEach(image => {
+          this.mapService.getImage(image).subscribe((im: any) => {
+          this.createImageFromBlob(im);
+          });
+        });
+      });
+
+    }
+  }
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imageSrcs.push(reader.result);
+    }, false);
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  sort(type) {
+    this.mapService.getPoiList().subscribe((data: any) => {
+      if (type === 'name') {
+      this.poiList = data.response.sort((a, b) => a.name.localeCompare(b.name));
+      }
+      if (type === 'rating') {
+      this.poiList = data.response.sort((a, b) => b.rating - a.rating);
+      }
+      if (type === 'category') {
+        this.poiList = data.response.sort((a, b) => a.place_type.name.localeCompare(b.place_type.name));
       }
     });
   }

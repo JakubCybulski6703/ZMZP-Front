@@ -4,7 +4,6 @@ import { UserService } from '../shared/user.service';
 import 'rxjs/add/operator/do';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {FakeBackendInterceptor} from '../shared/FakeBackendInterceptor';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
